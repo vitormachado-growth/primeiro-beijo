@@ -362,6 +362,11 @@
     transform: rotate(0deg) scale(1.04);
     box-shadow: 0 18px 36px var(--sombra);
   }
+  .polaroid.especial {
+    background: linear-gradient(160deg, #fffdf9, var(--amarelo-suave));
+    box-shadow: 0 16px 36px var(--sombra);
+  }
+  .polaroid.especial .cap { color: var(--dourado-escuro); }
 
   /* =========================================================
      TRILHA SONORA
@@ -777,19 +782,21 @@
   </section>
 
   <div class="galeria" id="galeria">
-    <!-- MODELO: quando tiver as fotos, troque o <div class="foto-ph"> por
-         <img src="fotos/nome-da-foto.jpg" alt="" /> e ajuste a legenda no .cap -->
     <figure class="polaroid">
-      <div class="foto-ph">sua foto aqui</div>
-      <figcaption class="cap">nós dois</figcaption>
+      <img src="fotos/foto1.jpg" alt="eu e você" loading="lazy" />
+      <figcaption class="cap">eu e você, sempre assim</figcaption>
+    </figure>
+    <figure class="polaroid especial">
+      <img src="fotos/beijo.jpg" alt="o nosso beijo" loading="lazy" />
+      <figcaption class="cap">o nosso beijo</figcaption>
     </figure>
     <figure class="polaroid">
-      <div class="foto-ph">sua foto aqui</div>
-      <figcaption class="cap">o nosso sorriso</figcaption>
+      <img src="fotos/foto3.jpg" alt="grudados" loading="lazy" />
+      <figcaption class="cap">grudados</figcaption>
     </figure>
     <figure class="polaroid">
-      <div class="foto-ph">sua foto aqui</div>
-      <figcaption class="cap">pra sempre</figcaption>
+      <img src="fotos/foto4.jpg" alt="a nossa dupla" loading="lazy" />
+      <figcaption class="cap">a nossa dupla</figcaption>
     </figure>
   </div>
 
