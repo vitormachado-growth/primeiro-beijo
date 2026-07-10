@@ -575,7 +575,7 @@
     padding: 30px 24px;
     background: linear-gradient(165deg, #2a2312 0%, #4a3a17 55%, #6b5220 100%);
     color: var(--amarelo-suave);
-    transition: opacity 1.4s ease, visibility 1.4s ease;
+    transition: opacity 2.4s ease, visibility 2.4s ease;
   }
   #contagem.saindo { opacity: 0; visibility: hidden; }
   #contagem .cont-selo {
@@ -1068,7 +1068,7 @@
   function revelar() {
     contagem.classList.add('saindo');
     document.body.style.overflow = '';
-    setTimeout(() => { contagem.style.display = 'none'; }, 1400);
+    setTimeout(() => { contagem.style.display = 'none'; }, 2400);
     // dá uma acelerada nas pétalas no momento da revelação (opcional)
     window.scrollTo({ top: 0 });
   }
