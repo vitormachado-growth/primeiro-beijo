@@ -366,6 +366,27 @@
     color: var(--texto-suave);
     font-style: italic;
   }
+  .faixa.destaque {
+    background: linear-gradient(160deg, var(--amarelo-suave), var(--creme));
+    border: 1.5px solid var(--amarelo-forte);
+    animation: brilho 2.4s ease-in-out infinite;
+  }
+  .faixa.destaque .faixa-num { color: var(--dourado-escuro); }
+  .faixa.destaque .faixa-nome { font-size: 27px; color: var(--dourado-escuro); }
+  .faixa.destaque .faixa-legenda { color: var(--texto); }
+  .faixa-selo {
+    display: inline-block;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+    background: var(--amarelo-medio);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
 
   /* =========================================================
      CARTA FINAL
@@ -743,9 +764,10 @@
         <div class="faixa-legenda">ainda bem que eu te encontrei. essa é a minha gratidão em forma de música por ter você.</div>
       </div>
     </div>
-    <div class="faixa">
+    <div class="faixa destaque">
       <div class="faixa-num">07</div>
       <div class="faixa-info">
+        <div class="faixa-selo">a nossa música</div>
         <div class="faixa-nome">cheiro de amor <span class="faixa-artista">maria bethânia</span></div>
         <div class="faixa-legenda">porque perto de você tudo tem cheiro de amor. e a bethânia canta isso melhor do que eu explico.</div>
       </div>
