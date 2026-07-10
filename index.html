@@ -363,8 +363,8 @@
      ========================================================= */
   #player {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 16px;
+    left: 50%;
     z-index: 50;
     display: flex;
     align-items: center;
@@ -379,6 +379,12 @@
     overflow: hidden;
     transition: max-width 0.4s ease;
     user-select: none;
+    transform: translateX(-50%);
+    animation: playerPop 0.6s ease 0.4s both;
+  }
+  @keyframes playerPop {
+    from { opacity: 0; transform: translate(-50%, -24px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
   }
   #player.expandido { max-width: 300px; }
   #player .info {
