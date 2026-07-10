@@ -309,6 +309,65 @@
   }
 
   /* =========================================================
+     TRILHA SONORA
+     ========================================================= */
+  .trilha {
+    max-width: 720px;
+    margin: 30px auto 0;
+    padding: 0 20px 20px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 14px;
+  }
+  .faixa {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--creme);
+    border: 1px solid var(--amarelo-claro);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 8px 24px var(--sombra);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .faixa.visivel { opacity: 1; transform: translateY(0); }
+  .faixa-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--amarelo-forte);
+    font-weight: 600;
+    min-width: 28px;
+    line-height: 1.5;
+  }
+  .faixa-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  .faixa-artista {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+  .faixa-legenda {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--texto-suave);
+    font-style: italic;
+  }
+
+  /* =========================================================
      CARTA FINAL
      ========================================================= */
   .carta {
@@ -635,6 +694,155 @@
 
   </div>
 
+  <!-- ============ TRILHA SONORA ============ -->
+  <section class="secao-titulo">
+    <span>o som de nós</span>
+    <h2>a nossa trilha sonora</h2>
+  </section>
+
+  <div class="trilha">
+    <div class="faixa">
+      <div class="faixa-num">01</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">mania de você <span class="faixa-artista">rita lee</span></div>
+        <div class="faixa-legenda">porque é exatamente isso que eu tenho por você. uma mania boa, dessas que não passam.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">02</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">velha infância <span class="faixa-artista">tribalistas</span></div>
+        <div class="faixa-legenda">você é a minha melhor amiga e o meu amor no mesmo abraço. essa música é a nossa cara.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">03</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">beija eu <span class="faixa-artista">marisa monte</span></div>
+        <div class="faixa-legenda">a trilha perfeita pra lembrar do nosso primeiro beijo, lá no ponto de ônibus do gramacho.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">04</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">um amor puro <span class="faixa-artista">djavan</span></div>
+        <div class="faixa-legenda">porque o que eu sinto por você não tem segunda intenção nenhuma. é puro, do jeito do djavan.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">05</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">pela luz dos olhos teus <span class="faixa-artista">miúcha &amp; tom jobim</span></div>
+        <div class="faixa-legenda">porque eu me perco toda vez que olho nos seus olhos. e não faço questão nenhuma de me achar.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">06</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">ainda bem <span class="faixa-artista">vanessa da mata</span></div>
+        <div class="faixa-legenda">ainda bem que eu te encontrei. essa é a minha gratidão em forma de música por ter você.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">07</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">cheiro de amor <span class="faixa-artista">maria bethânia</span></div>
+        <div class="faixa-legenda">porque perto de você tudo tem cheiro de amor. e a bethânia canta isso melhor do que eu explico.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">08</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">lisboa <span class="faixa-artista">anavitória &amp; lenine</span></div>
+        <div class="faixa-legenda">pros dias em que a saudade aperta, mesmo com você por perto. a gente sempre quer mais um pouco.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">09</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">cor de marte <span class="faixa-artista">anavitória</span></div>
+        <div class="faixa-legenda">porque com você até o impossível, até outro planeta, parece estar logo ali do lado.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">10</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">espetáculo estranho <span class="faixa-artista">anavitória</span></div>
+        <div class="faixa-legenda">porque me apaixonar por você foi o espetáculo mais estranho e mais lindo que eu já vivi.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">11</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">ter o coração no chão <span class="faixa-artista">anavitória</span></div>
+        <div class="faixa-legenda">porque com você eu deixei o coração no chão, sem medo nenhum de me entregar por inteiro.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">12</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">partilhar <span class="faixa-artista">rubel</span></div>
+        <div class="faixa-legenda">porque é isso que eu quero com você: partilhar tudo. os dias bons e os difíceis também.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">13</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">deixa <span class="faixa-artista">lagum</span></div>
+        <div class="faixa-legenda">deixa a gente acontecer. foi exatamente o que a gente fez, e olha no que deu.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">14</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">equalize <span class="faixa-artista">pitty</span></div>
+        <div class="faixa-legenda">porque a gente se sintonizou na mesma frequência. eu só quero mesmo é te equalizar.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">15</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">minha vida <span class="faixa-artista">rita lee</span></div>
+        <div class="faixa-legenda">porque em toda a minha vida, entre tantos lugares e tantas pessoas, é você que eu amo mais.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">16</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">caso sério</div>
+        <div class="faixa-legenda">porque desde o comecinho isso aqui nunca foi brincadeira. sempre foi, e continua sendo, caso sério.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">17</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">xuxuzinho</div>
+        <div class="faixa-legenda">pela nossa fofura. porque todo casal tem os seus apelidos bobos, e eu amo demais os nossos.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">18</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">olha</div>
+        <div class="faixa-legenda">olha só onde a gente foi chegar. de uma implicância boba e um "−3 pontos" a um ano de nós.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">19</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">pelo tempo que durar</div>
+        <div class="faixa-legenda">que dure muito. mas, pelo tempo que durar, que seja sempre intenso e verdadeiro como é hoje.</div>
+      </div>
+    </div>
+    <div class="faixa">
+      <div class="faixa-num">20</div>
+      <div class="faixa-info">
+        <div class="faixa-nome">será que é amor</div>
+        <div class="faixa-legenda">no comecinho eu me perguntava isso o tempo todo. hoje eu já sei a resposta. é amor, sim.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ CARTA FINAL ============ -->
   <section class="carta">
     <div class="carta-papel">
@@ -749,7 +957,7 @@
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
   }, { threshold: 0.2 });
-  document.querySelectorAll('.momento').forEach(m => obs.observe(m));
+  document.querySelectorAll('.momento, .faixa').forEach(m => obs.observe(m));
 
   /* =========================================================
      >>>>>  A NOSSA PLAYLIST  <<<<<
