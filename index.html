@@ -6,7 +6,7 @@
 <title>Nosso Primeiro Beijo 💛</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   /* =========================================================
      PALETA — tons de amarelo (a cor de voces) 💛
@@ -306,6 +306,61 @@
   @keyframes brilho {
     0%,100% { box-shadow: 0 0 0 0 rgba(255,193,7,0.5); }
     50%     { box-shadow: 0 0 0 12px rgba(255,193,7,0); }
+  }
+
+  /* =========================================================
+     GALERIA POLAROID
+     ========================================================= */
+  .galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 26px 22px;
+    max-width: 780px;
+    margin: 40px auto 0;
+    padding: 10px 20px 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .polaroid {
+    background: #fffdf9;
+    padding: 12px 12px 0;
+    border-radius: 4px;
+    box-shadow: 0 12px 28px var(--sombra);
+    width: 216px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .polaroid img,
+  .polaroid .foto-ph {
+    width: 100%;
+    height: 236px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    background: linear-gradient(135deg, var(--amarelo-claro), var(--amarelo-suave));
+    color: var(--dourado);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .polaroid .cap {
+    font-family: 'Caveat', cursive;
+    font-size: 24px;
+    text-align: center;
+    padding: 8px 6px 16px;
+    color: var(--texto);
+    line-height: 1.1;
+  }
+  .polaroid:nth-child(3n+1) { transform: rotate(-3deg); }
+  .polaroid:nth-child(3n+2) { transform: rotate(2.5deg); }
+  .polaroid:nth-child(3n+3) { transform: rotate(-1.5deg); }
+  .polaroid:hover {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 18px 36px var(--sombra);
   }
 
   /* =========================================================
@@ -713,6 +768,29 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- ============ GALERIA ============ -->
+  <section class="secao-titulo">
+    <span>eu e você</span>
+    <h2>nós</h2>
+  </section>
+
+  <div class="galeria" id="galeria">
+    <!-- MODELO: quando tiver as fotos, troque o <div class="foto-ph"> por
+         <img src="fotos/nome-da-foto.jpg" alt="" /> e ajuste a legenda no .cap -->
+    <figure class="polaroid">
+      <div class="foto-ph">sua foto aqui</div>
+      <figcaption class="cap">nós dois</figcaption>
+    </figure>
+    <figure class="polaroid">
+      <div class="foto-ph">sua foto aqui</div>
+      <figcaption class="cap">o nosso sorriso</figcaption>
+    </figure>
+    <figure class="polaroid">
+      <div class="foto-ph">sua foto aqui</div>
+      <figcaption class="cap">pra sempre</figcaption>
+    </figure>
   </div>
 
   <!-- ============ TRILHA SONORA ============ -->
