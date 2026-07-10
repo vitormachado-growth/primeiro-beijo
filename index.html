@@ -1013,7 +1013,10 @@
      Ano, Mês (0 = janeiro, então 6 = JULHO), Dia, Hora, Minuto, Segundo
      Ex.: 10 de julho de 2026 às 17:34  ->  (2026, 6, 10, 17, 34, 0)
      ========================================================= */
-  const ALVO = new Date(2026, 6, 10, 17, 34, 0);
+  // modo demonstração: abra com  ?demo  pra ver a contagem zerar em ~15s e a revelação acontecer
+  const ALVO = new URLSearchParams(location.search).has('demo')
+    ? new Date(Date.now() + 15000)
+    : new Date(2026, 6, 10, 17, 34, 0);
 
   const abertura  = document.getElementById('abertura');
   const contagem  = document.getElementById('contagem');
