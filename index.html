@@ -185,8 +185,9 @@
   .scroll-dica {
     position: absolute;
     bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    text-align: center;
     color: var(--dourado);
     font-size: 13px;
     letter-spacing: 2px;
@@ -661,7 +662,7 @@
   /* ====== PETALAS ====== */
   (function () {
     const cont = document.getElementById('petals');
-    const emojis = ['💛', '✨', '🐺', '🏺', '☥', '⚖️', '👁️', '🔺', '🌟', '💛'];
+    const emojis = ['💛', '✨', '🐆', '🏺', '☥', '⚖️', '👁️', '🔺', '🌟', '💛'];
     const N = 14;
     for (let i = 0; i < N; i++) {
       const p = document.createElement('div');
