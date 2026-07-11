@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Rádio Amarela 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --amarelo-suave:   #FFF8E1;
+    --amarelo-claro:   #FFECB3;
+    --amarelo-medio:   #FFD54F;
+    --amarelo-forte:   #FFC107;
+    --dourado:         #E6A817;
+    --dourado-escuro:  #B8860B;
+    --creme:           #FFFDF6;
+    --texto:           #5A4A2A;
+    --texto-suave:     #8A7A55;
+    --sombra:          rgba(184, 134, 11, 0.22);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--texto);
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 15%, var(--amarelo-claro) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, var(--amarelo-suave) 0%, transparent 50%),
+      linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== TELA "LIGAR O RÁDIO" ====== */
+  #ligar {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(160deg, var(--amarelo-suave), var(--amarelo-claro));
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    padding: 24px;
+    cursor: pointer;
+  }
+  #ligar.oculto { opacity: 0; visibility: hidden; }
+  #ligar .disco-grande {
+    font-size: 78px;
+    animation: girar 5s linear infinite;
+    filter: drop-shadow(0 8px 20px var(--sombra));
+  }
+  #ligar h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 8vw, 44px);
+    color: var(--dourado-escuro);
+    margin-top: 22px;
+  }
+  #ligar p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 4.5vw, 22px);
+    color: var(--texto-suave);
+    margin-top: 8px;
+  }
+  #ligar .toque {
+    margin-top: 26px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+    border: 1.5px solid var(--amarelo-forte);
+    background: rgba(255,255,255,0.4);
+    padding: 12px 28px;
+    border-radius: 999px;
+    animation: pulsar 2s ease-in-out infinite;
+  }
+  @keyframes pulsar { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+
+  /* ====== CONSOLE DA RÁDIO ====== */
+  .radio {
+    width: 100%;
+    max-width: 440px;
+    background: var(--creme);
+    border: 1px solid var(--amarelo-claro);
+    border-radius: 28px;
+    box-shadow: 0 24px 60px var(--sombra);
+    padding: 26px 26px 30px;
+    position: relative;
+  }
+
+  .topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .marca {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--texto);
+    letter-spacing: 0.5px;
+  }
+  .marca span { color: var(--dourado-escuro); }
+  .freq {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-top: 2px;
+  }
+  .no-ar {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+  }
+  .no-ar .ponto {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #E5533D;
+    box-shadow: 0 0 0 0 rgba(229,83,61,0.6);
+    animation: piscarAr 1.4s ease-in-out infinite;
+  }
+  @keyframes piscarAr {
+    0%,100% { box-shadow: 0 0 0 0 rgba(229,83,61,0.6); opacity: 1; }
+    50%     { box-shadow: 0 0 0 7px rgba(229,83,61,0); opacity: .6; }
+  }
+
+  /* disco */
+  .disco-wrap { display: flex; justify-content: center; margin: 6px 0 22px; }
+  .disco {
+    width: 190px; height: 190px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at center, var(--creme) 0 16%, transparent 16.5%),
+      repeating-radial-gradient(circle at center, #3a3120 0 2px, #2a2318 2px 5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px var(--sombra), inset 0 0 0 6px rgba(255,255,255,0.06);
+    position: relative;
+    animation: girar 6s linear infinite;
+    animation-play-state: paused;
+  }
+  .disco.tocando { animation-play-state: running; }
+  .disco::after {
+    content: "";
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--amarelo-forte);
+    box-shadow: 0 0 0 5px var(--creme), inset 0 0 0 3px var(--dourado);
+  }
+  .disco .brilho {
+    position: absolute;
+    top: 18%; left: 22%;
+    width: 40%; height: 26%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.35), transparent 70%);
+    border-radius: 50%;
+    transform: rotate(-20deg);
+  }
+  @keyframes girar { to { transform: rotate(360deg); } }
+
+  /* tocando agora */
+  .agora-rot {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 6px;
+  }
+  .titulo {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--texto);
+    line-height: 1.15;
+    min-height: 36px;
+  }
+  .artista {
+    text-align: center;
+    font-size: 14px;
+    color: var(--texto-suave);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* progresso */
+  .progresso {
+    margin: 22px 4px 6px;
+  }
+  .barra {
+    height: 6px;
+    background: var(--amarelo-claro);
+    border-radius: 999px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .barra .preenchido {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--amarelo-forte), var(--dourado));
+    border-radius: 999px;
+    transition: width 0.2s linear;
+  }
+  .tempos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--texto-suave);
+    margin-top: 7px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* controles */
+  .controles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 16px;
+  }
+  .ctrl {
+    border: none;
+    background: transparent;
+    color: var(--dourado-escuro);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+    font-family: inherit;
+  }
+  .ctrl:active { transform: scale(0.9); }
+  .ctrl.sec { width: 46px; height: 46px; font-size: 20px; border-radius: 50%; background: var(--amarelo-suave); }
+  .ctrl.play {
+    width: 66px; height: 66px;
+    border-radius: 50%;
+    background: var(--amarelo-forte);
+    color: #fff;
+    font-size: 24px;
+    box-shadow: 0 8px 20px var(--sombra);
+  }
+
+  /* a seguir */
+  .aseguir {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--amarelo-medio);
+    text-align: center;
+  }
+  .aseguir .rot {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dourado);
+  }
+  .aseguir .prox {
+    font-size: 14px;
+    color: var(--texto-suave);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .slogan {
+    text-align: center;
+    margin-top: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--texto-suave);
+    min-height: 22px;
+    transition: opacity 0.6s ease;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ====== TELA LIGAR ====== -->
+  <div id="ligar">
+    <div class="disco-grande">💛</div>
+    <h1>rádio amarela</h1>
+    <p>a estação do nosso amor, tocando sem parar</p>
+    <div class="toque">toque para ligar o rádio</div>
+  </div>
+
+  <!-- ====== CONSOLE ====== -->
+  <div class="radio">
+    <div class="topo">
+      <div>
+        <div class="marca">rádio <span>amarela</span></div>
+        <div class="freq">107.9 amor fm</div>
+      </div>
+      <div class="no-ar"><span class="ponto"></span> no ar</div>
+    </div>
+
+    <div class="disco-wrap">
+      <div class="disco" id="disco"><span class="brilho"></span></div>
+    </div>
+
+    <div class="agora-rot">tocando agora</div>
+    <div class="titulo" id="titulo">—</div>
+    <div class="artista" id="artista"></div>
+
+    <div class="progresso">
+      <div class="barra" id="barra"><div class="preenchido" id="preenchido"></div></div>
+      <div class="tempos"><span id="tAtual">0:00</span><span id="tTotal">0:00</span></div>
+    </div>
+
+    <div class="controles">
+      <button class="ctrl sec" id="btnPrev" title="Anterior">⏮</button>
+      <button class="ctrl play" id="btnPlay" title="Play/Pause"><span id="ico">❚❚</span></button>
+      <button class="ctrl sec" id="btnNext" title="Próxima">⏭</button>
+    </div>
+
+    <div class="aseguir">
+      <div class="rot">a seguir</div>
+      <div class="prox" id="prox">—</div>
+    </div>
+
+    <div class="slogan" id="slogan">no ar, só pra você.</div>
+  </div>
+
+  <audio id="audio"></audio>
+
+<script>
+  /* ====== PLAYLIST (as 20 músicas de vocês) ====== */
+  const PLAYLIST = [
+    { src: 'musicas/Mania De Você.mp3',                                                    nome: 'mania de você',            artista: 'rita lee' },
+    { src: 'musicas/Tribalistas - Velha Infância.mp3',                                     nome: 'velha infância',           artista: 'tribalistas' },
+    { src: 'musicas/Marisa Monte - Beija Eu.mp3',                                          nome: 'beija eu',                 artista: 'marisa monte' },
+    { src: 'musicas/Djavan - Um Amor Puro (Áudio Oficial).mp3',                            nome: 'um amor puro',             artista: 'djavan' },
+    { src: 'musicas/Miúcha, Antonio Carlos Jobim - Pela Luz dos Olhos Teus (Pseudo Vídeo).mp3', nome: 'pela luz dos olhos teus', artista: 'miúcha & tom jobim' },
+    { src: 'musicas/Vanessa da Mata - Ainda Bem (Áudio Oficial).mp3',                      nome: 'ainda bem',                artista: 'vanessa da mata' },
+    { src: 'musicas/Maria Bethânia - Cheiro De Amor (Lyric Video).mp3',                    nome: 'cheiro de amor',           artista: 'maria bethânia' },
+    { src: 'musicas/ANAVITÓRIA, Lenine - Lisboa (visualizer).mp3',                         nome: 'lisboa',                   artista: 'anavitória & lenine' },
+    { src: 'musicas/ANAVITÓRIA - Cor de Marte (Ao vivo na Fundição).mp3',                  nome: 'cor de marte',             artista: 'anavitória' },
+    { src: 'musicas/ANAVITÓRIA - Espetáculo estranho.mp3',                                 nome: 'espetáculo estranho',      artista: 'anavitória' },
+    { src: 'musicas/ANAVITÓRIA - Ter o coração no chão.mp3',                               nome: 'ter o coração no chão',    artista: 'anavitória' },
+    { src: 'musicas/Rubel - Partilhar [Áudio Oficial].mp3',                                nome: 'partilhar',                artista: 'rubel' },
+    { src: 'musicas/Lagum - Deixa (Letra)  ft. Ana Gabriela.mp3',                          nome: 'deixa',                    artista: 'lagum' },
+    { src: 'musicas/Pitty - Equalize.mp3',                                                 nome: 'equalize',                 artista: 'pitty' },
+    { src: 'musicas/Rita Lee - Minha Vida (In My Life) - Tema da Novela Espelho da Vida.mp3', nome: 'minha vida',            artista: 'rita lee' },
+    { src: 'musicas/Caso Sério.mp3',                                                       nome: 'caso sério',               artista: '' },
+    { src: 'musicas/Xuxuzinho.mp3',                                                        nome: 'xuxuzinho',                artista: '' },
+    { src: 'musicas/Olha.mp3',                                                             nome: 'olha',                     artista: '' },
+    { src: 'musicas/Pelo Tempo Que Durar.mp3',                                             nome: 'pelo tempo que durar',     artista: '' },
+    { src: 'musicas/Será que é amor (Ao vivo).mp3',                                        nome: 'será que é amor',          artista: '' },
+  ];
+
+  const audio   = document.getElementById('audio');
+  const disco   = document.getElementById('disco');
+  const titulo  = document.getElementById('titulo');
+  const artista = document.getElementById('artista');
+  const prox    = document.getElementById('prox');
+  const ico     = document.getElementById('ico');
+  const barra   = document.getElementById('barra');
+  const preench = document.getElementById('preenchido');
+  const tAtual  = document.getElementById('tAtual');
+  const tTotal  = document.getElementById('tTotal');
+  const slogan  = document.getElementById('slogan');
+
+  let ordem = [], idx = 0;
+
+  function embaralhar(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function fmt(s) {
+    if (!s || isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60), r = Math.floor(s % 60);
+    return m + ':' + String(r).padStart(2, '0');
+  }
+  function carregar(i) {
+    const f = ordem[i];
+    audio.src = f.src;
+    titulo.textContent = f.nome;
+    artista.textContent = f.artista || '';
+    const p = ordem[(i + 1) % ordem.length];
+    prox.textContent = p.artista ? (p.nome + ' · ' + p.artista) : p.nome;
+  }
+  function tocar() {
+    audio.play().then(() => { ico.textContent = '❚❚'; disco.classList.add('tocando'); }).catch(() => {});
+  }
+  function pausar() { audio.pause(); ico.textContent = '▶'; disco.classList.remove('tocando'); }
+  function proxima() {
+    idx++;
+    if (idx >= ordem.length) { ordem = embaralhar(PLAYLIST); idx = 0; }
+    carregar(idx); tocar();
+  }
+  function anterior() {
+    if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+    idx = (idx - 1 + ordem.length) % ordem.length;
+    carregar(idx); tocar();
+  }
+
+  audio.addEventListener('ended', proxima);
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      preench.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      tAtual.textContent = fmt(audio.currentTime);
+    }
+  });
+  audio.addEventListener('loadedmetadata', () => { tTotal.textContent = fmt(audio.duration); });
+  barra.addEventListener('click', (e) => {
+    if (!audio.duration) return;
+    const r = barra.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+  });
+
+  document.getElementById('btnPlay').addEventListener('click', () => { audio.paused ? tocar() : pausar(); });
+  document.getElementById('btnNext').addEventListener('click', proxima);
+  document.getElementById('btnPrev').addEventListener('click', anterior);
+
+  /* slogans girando (identidade da rádio) */
+  const slogans = [
+    'no ar, só pra você.',
+    'a nossa trilha sonora, sem parar.',
+    'tocando amor o dia inteiro.',
+    'a estação do nosso primeiro beijo.',
+    'só toca o que me lembra você.',
+  ];
+  let sIdx = 0;
+  setInterval(() => {
+    slogan.style.opacity = 0;
+    setTimeout(() => {
+      sIdx = (sIdx + 1) % slogans.length;
+      slogan.textContent = slogans[sIdx];
+      slogan.style.opacity = 1;
+    }, 600);
+  }, 8000);
+
+  /* ligar o rádio (gesto libera o áudio) */
+  const ligar = document.getElementById('ligar');
+  function ligarRadio() {
+    ligar.classList.add('oculto');
+    ordem = embaralhar(PLAYLIST);
+    idx = 0;
+    carregar(idx);
+    tocar();
+  }
+  ligar.addEventListener('click', ligarRadio);
+
+  /* já deixa a primeira carregada no visor (sem tocar) */
+  ordem = embaralhar(PLAYLIST);
+  carregar(0);
+  ico.textContent = '▶';
+</script>
+</body>
+</html>
