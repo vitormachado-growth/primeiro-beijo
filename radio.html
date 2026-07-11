@@ -57,8 +57,14 @@
   #ligar.oculto { opacity: 0; visibility: hidden; }
   #ligar .disco-grande {
     font-size: 78px;
-    animation: girar 5s linear infinite;
+    animation: bater 1.8s ease-in-out infinite;
     filter: drop-shadow(0 8px 20px var(--sombra));
+  }
+  @keyframes bater {
+    0%, 100% { transform: scale(1); }
+    15%      { transform: scale(1.14); }
+    30%      { transform: scale(1); }
+    45%      { transform: scale(1.1); }
   }
   #ligar h1 {
     font-family: 'Playfair Display', serif;
