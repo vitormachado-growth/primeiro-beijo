@@ -384,26 +384,14 @@
     { txt: 'no ar, a estação do nosso primeiro beijo.',        src: 'locucoes/loc7.mp3' },
     { txt: 'presta atenção na letra, essa é a nossa cara.',    src: 'locucoes/loc8.mp3' },
   ];
-  const voz = new Audio();
-  let djIdx = 0, locTimer = null, ducking = false;
+  let djIdx = 0, locTimer = null;
 
   function anunciar(item) {
     clearTimeout(locTimer);
     locTxt.textContent = item.txt;
     locucao.classList.add('mostrar');
-    // abaixa a música e fala por cima
-    ducking = true;
-    audio.volume = parseFloat(vol.value) * 0.12;
-    voz.src = item.src;
-    voz.play().catch(() => restaurar());
+    locTimer = setTimeout(() => locucao.classList.remove('mostrar'), 5200);
   }
-  function restaurar() {
-    ducking = false;
-    audio.volume = parseFloat(vol.value);
-    locTimer = setTimeout(() => locucao.classList.remove('mostrar'), 900);
-  }
-  voz.addEventListener('ended', restaurar);
-  voz.addEventListener('error', restaurar);
   function djProxima() { const m = DJ[djIdx % DJ.length]; djIdx++; return m; }
 
   function embaralhar(a) {
@@ -458,7 +446,7 @@
     const r = barra.getBoundingClientRect();
     audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
   });
-  vol.addEventListener('input', () => { if (!ducking) audio.volume = parseFloat(vol.value); });
+  vol.addEventListener('input', () => { audio.volume = parseFloat(vol.value); });
 
   document.getElementById('btnPlay').addEventListener('click', () => { audio.paused ? tocar() : pausar(); });
   document.getElementById('btnNext').addEventListener('click', proxima);
