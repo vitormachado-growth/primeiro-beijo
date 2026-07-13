@@ -189,6 +189,28 @@
   .slogan { text-align: center; margin-top: 16px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--texto-suave); min-height: 22px; transition: opacity 0.6s ease; }
   @keyframes girar { to { transform: rotate(360deg); } }
 
+  /* ====== MODO "A NOSSA MÚSICA" (cheiro de amor) ====== */
+  .nossa-selo {
+    display: none; text-align: center; margin-bottom: 4px;
+    font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--dourado-escuro);
+  }
+  body.nossa-musica .nossa-selo { display: block; animation: bater 1.6s ease-in-out infinite; }
+  body.nossa-musica .radio { animation: glow 2.2s ease-in-out infinite; }
+  @keyframes glow {
+    0%,100% { box-shadow: 0 0 0 2px var(--amarelo-forte), 0 24px 56px var(--sombra); }
+    50%     { box-shadow: 0 0 0 5px var(--dourado), 0 26px 64px rgba(230,168,23,0.5); }
+  }
+  body.nossa-musica .disco-foto {
+    border-color: var(--amarelo-suave);
+    box-shadow: 0 0 0 5px var(--dourado-escuro), 0 0 26px var(--amarelo-forte), 0 4px 12px rgba(0,0,0,0.4);
+  }
+  body.nossa-musica .titulo { color: var(--dourado-escuro); }
+  body.nossa-musica .porque {
+    background: linear-gradient(160deg, var(--amarelo-claro), var(--amarelo-suave));
+    border-color: var(--amarelo-forte);
+  }
+
   /* locutor / vinheta */
   .locucao {
     position: fixed; top: 16px; left: 50%; transform: translate(-50%, -160%);
@@ -238,6 +260,7 @@
 
     <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
+    <div class="nossa-selo">💛 a nossa música 💛</div>
     <div class="agora-rot">tocando agora</div>
     <div class="titulo" id="titulo">—</div>
     <div class="artista" id="artista"></div>
@@ -415,6 +438,11 @@
     contador.textContent = 'faixa ' + (i + 1) + ' de ' + ordem.length;
     porqueTxt.textContent = f.pq || '';
     discoFoto.src = FOTOS[i % FOTOS.length];
+    // modo especial quando toca a nossa música
+    const especial = f.nome === 'cheiro de amor';
+    const jaEra = document.body.classList.contains('nossa-musica');
+    document.body.classList.toggle('nossa-musica', especial);
+    if (especial && !jaEra) chuvaDeCoracoes();
     const p = ordem[(i + 1) % ordem.length];
     prox.textContent = p.artista ? (p.nome + ' · ' + p.artista) : p.nome;
   }
@@ -465,9 +493,9 @@
     setTimeout(() => { sIdx = (sIdx + 1) % slogans.length; slogan.textContent = slogans[sIdx]; slogan.style.opacity = 1; }, 600);
   }, 8000);
 
-  /* corações caindo */
+  /* corações caindo (fundo constante) */
+  const petalsCont = document.getElementById('petals');
   (function () {
-    const cont = document.getElementById('petals');
     for (let i = 0; i < 12; i++) {
       const p = document.createElement('div');
       p.className = 'petal';
@@ -477,9 +505,25 @@
       const d = 9 + Math.random() * 9;
       p.style.animationDuration = d + 's';
       p.style.animationDelay = (-Math.random() * d) + 's';
-      cont.appendChild(p);
+      petalsCont.appendChild(p);
     }
   })();
+
+  /* chuva de corações quando toca a nossa música */
+  function chuvaDeCoracoes() {
+    for (let k = 0; k < 24; k++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = '💛';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.fontSize = (16 + Math.random() * 20) + 'px';
+      const d = 4 + Math.random() * 3;
+      p.style.animationDuration = d + 's';
+      p.style.animationDelay = (Math.random() * 0.6) + 's';
+      petalsCont.appendChild(p);
+      setTimeout(() => p.remove(), (d + 1) * 1000);
+    }
+  }
 
   /* ligar o rádio */
   const ligar = document.getElementById('ligar');
