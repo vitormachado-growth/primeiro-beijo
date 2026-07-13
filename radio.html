@@ -41,16 +41,21 @@
 
   /* corações de fundo */
   .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-  .foto-fundo {
-    position: fixed; inset: 0; z-index: 0;
-    background-image: url('fotos/beijo.jpg');
-    background-size: cover; background-position: center 35%;
-    opacity: 0;
-    transition: opacity 1.6s ease;
-    pointer-events: none;
+  .polaroid-nossa {
+    position: fixed; top: 50%; left: 50%; z-index: 70;
+    transform: translate(-50%, -50%) scale(0.7) rotate(-5deg);
+    opacity: 0; pointer-events: none;
+    background: #fffdf9; padding: 13px 13px 0; border-radius: 6px;
+    box-shadow: 0 28px 66px rgba(90,60,10,0.45);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.5,1.4,.5,1);
+    width: min(72vw, 300px);
   }
-  body.nossa-musica .foto-fundo { opacity: 0.5; animation: kenburns 22s ease-in-out infinite alternate; }
-  @keyframes kenburns { from { transform: scale(1.0); } to { transform: scale(1.08); } }
+  .polaroid-nossa.mostrar { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+  .polaroid-nossa img { width: 100%; display: block; border-radius: 3px; }
+  .polaroid-nossa .cap {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    text-align: center; padding: 10px 6px 14px; color: var(--texto); font-size: 21px;
+  }
   .petal { position: absolute; top: -40px; opacity: 0.6; animation: fall linear infinite; will-change: transform; }
   @keyframes fall {
     0% { transform: translateY(-40px) rotate(0deg); opacity: 0; }
@@ -247,8 +252,12 @@
 </head>
 <body>
 
-  <div class="foto-fundo"></div>
   <div class="petals" id="petals"></div>
+
+  <figure class="polaroid-nossa" id="polaroidNossa">
+    <img src="fotos/beijo.jpg" alt="o nosso beijo" />
+    <figcaption class="cap">a nossa música</figcaption>
+  </figure>
 
   <div class="locucao" id="locucao"><span class="mic">🎙️</span><span id="locTxt"></span></div>
 
@@ -461,8 +470,8 @@
     const especial = f.nome === 'cheiro de amor';
     const jaEra = document.body.classList.contains('nossa-musica');
     document.body.classList.toggle('nossa-musica', especial);
-    if (especial && !jaEra) iniciarChuva();
-    if (!especial && jaEra) pararChuva();
+    if (especial && !jaEra) { iniciarChuva(); mostrarPolaroid(); }
+    if (!especial && jaEra) { pararChuva(); esconderPolaroid(); }
     const p = ordem[(i + 1) % ordem.length];
     prox.textContent = p.artista ? (p.nome + ' · ' + p.artista) : p.nome;
   }
@@ -542,6 +551,16 @@
     petalsCont.appendChild(p);
     setTimeout(() => p.remove(), (d + (delayMax || 0) + 1) * 1000);
   }
+  /* polaroid da nossa foto no modo especial */
+  const polaroidNossa = document.getElementById('polaroidNossa');
+  let polTimer = null;
+  function mostrarPolaroid() {
+    polaroidNossa.classList.add('mostrar');
+    clearTimeout(polTimer);
+    polTimer = setTimeout(() => polaroidNossa.classList.remove('mostrar'), 6000);
+  }
+  function esconderPolaroid() { clearTimeout(polTimer); polaroidNossa.classList.remove('mostrar'); }
+
   let chuvaTimer = null;
   function iniciarChuva() {
     for (let k = 0; k < 22; k++) soltarCoracao(0.6);   // estouro inicial
