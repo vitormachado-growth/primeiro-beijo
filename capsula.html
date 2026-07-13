@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Cápsula do tempo 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Playfair+Display:ital,wght@0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --amarelo-suave:#FFF8E1; --amarelo-claro:#FFECB3; --amarelo-medio:#FFD54F;
+    --amarelo-forte:#FFC107; --dourado:#E6A817; --dourado-escuro:#B8860B;
+    --creme:#FFFDF6; --texto:#5A4A2A; --texto-suave:#8A7A55; --sombra:rgba(184,134,11,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Quicksand',sans-serif; color:var(--texto);
+    min-height:100vh; overflow-x:hidden;
+    background:
+      radial-gradient(circle at 18% 12%, var(--amarelo-claro) 0%, transparent 45%),
+      radial-gradient(circle at 85% 88%, var(--amarelo-suave) 0%, transparent 50%),
+      linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal { position:absolute; top:-40px; opacity:.5; animation:fall linear infinite; }
+  @keyframes fall { 0%{transform:translateY(-40px) rotate(0);opacity:0} 10%{opacity:.5} 90%{opacity:.5} 100%{transform:translateY(105vh) rotate(360deg);opacity:0} }
+
+  .wrap { position:relative; z-index:2; max-width:640px; margin:0 auto; padding:60px 22px 80px; }
+  header { text-align:center; margin-bottom:38px; }
+  header .ic { font-size:46px; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,8vw,50px); color:var(--texto); margin-top:10px; }
+  header p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(17px,4.5vw,22px); color:var(--texto-suave); margin-top:8px; }
+
+  .grade { display:grid; gap:16px; }
+  .capsula {
+    background:var(--creme); border:1px solid var(--amarelo-claro); border-radius:20px;
+    padding:22px 22px; box-shadow:0 12px 30px var(--sombra); cursor:pointer;
+    display:flex; align-items:center; gap:18px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .capsula:hover { transform:translateY(-3px); box-shadow:0 18px 40px var(--sombra); }
+  .capsula.tremer { animation:tremer .5s ease; }
+  @keyframes tremer { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+  .capsula .selo {
+    flex:0 0 auto; width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+    font-size:28px; background:var(--amarelo-suave); border:1px solid var(--amarelo-claro);
+  }
+  .capsula.aberta .selo { background:var(--amarelo-forte); }
+  .capsula .txt { flex:1; }
+  .capsula .ocasiao { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; color:var(--texto); }
+  .capsula .data { font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--dourado); margin-top:2px; }
+  .capsula .status { font-size:13px; color:var(--texto-suave); margin-top:6px; }
+  .capsula.aberta .status { color:var(--dourado-escuro); font-weight:600; }
+  .capsula .seta { flex:0 0 auto; color:var(--amarelo-forte); font-size:20px; }
+
+  .voltar { display:block; text-align:center; margin-top:34px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--dourado-escuro); text-decoration:none; }
+
+  /* modal */
+  .overlay { position:fixed; inset:0; z-index:40; background:rgba(60,45,15,.55); backdrop-filter:blur(3px);
+    display:flex; align-items:center; justify-content:center; padding:22px; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s ease; }
+  .overlay.aberto { opacity:1; visibility:visible; }
+  .modal { background:var(--creme); border-radius:24px; max-width:520px; width:100%; padding:38px 32px 30px;
+    box-shadow:0 30px 70px rgba(0,0,0,.35); position:relative; transform:translateY(24px) scale(.96);
+    transition:transform .4s cubic-bezier(.5,1.3,.5,1); max-height:88vh; overflow-y:auto; }
+  .overlay.aberto .modal { transform:translateY(0) scale(1); }
+  .modal .fechar { position:absolute; top:14px; right:16px; font-size:22px; color:var(--texto-suave); background:none; border:none; cursor:pointer; }
+  .modal .oc { text-align:center; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--dourado); }
+  .modal h2 { text-align:center; font-family:'Playfair Display',serif; font-size:clamp(24px,6vw,32px); color:var(--texto); margin:4px 0 20px; }
+  .modal .carta { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(19px,5vw,23px); line-height:1.7; color:var(--texto); text-align:center; white-space:pre-line; }
+  .modal .assina { text-align:center; margin-top:18px; font-family:'Playfair Display',serif; font-size:18px; color:var(--dourado-escuro); }
+</style>
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+  <div class="wrap">
+    <header>
+      <div class="ic">⏳</div>
+      <h1>cápsula do tempo</h1>
+      <p>cartas que eu deixei guardadas pra você. cada uma abre sozinha no seu dia certo.</p>
+    </header>
+
+    <div class="grade" id="grade"></div>
+
+    <a class="voltar" href="index.html">← voltar pra nossa história</a>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <button class="fechar" id="fechar">✕</button>
+      <div class="oc" id="mOc"></div>
+      <h2 id="mTit"></h2>
+      <div class="carta" id="mCarta"></div>
+      <div class="assina">— vitor</div>
+    </div>
+  </div>
+
+<script>
+  const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const PREVIA = new URLSearchParams(location.search).has('ver');
+
+  const CAPSULAS = [
+    {
+      ic:'🎂', mes:9, dia:16, ocasiao:'feliz aniversário, meu amor',
+      carta:'feliz aniversário, gabryella.\nhoje o mundo comemora o dia mais importante do ano pra mim: o dia em que você nasceu. obrigado por existir, por ter cruzado o meu caminho e por ser exatamente quem você é. que esse novo ano da sua vida seja leve, cheio de conquistas e de sorrisos, e que eu possa estar do seu lado em cada um deles. eu te amo mais do que ontem e menos do que amanhã. o dia é seu, mas a sorte de te ter é toda minha.'
+    },
+    {
+      ic:'💛', mes:7, dia:10, ocasiao:'mais um ano do nosso primeiro beijo',
+      carta:'hoje faz mais um ano daquele beijo no ponto de ônibus, exatamente às 17:34.\neu ainda lembro de cada detalhe, do frio na barriga, e de tudo que veio antes: a implicância, o papelão, o nome errado, o joelho. valeu cada segundo, porque me trouxe até aqui, até você. obrigado por mais um ano da gente. que venham muitos outros, sempre no amarelo, sempre nós dois.'
+    },
+    {
+      ic:'💘', mes:6, dia:12, ocasiao:'feliz dia dos namorados',
+      carta:'feliz dia dos namorados, meu amor.\nde todas as pessoas do mundo, é com você que eu quero namorar, hoje e sempre. obrigado por ser a minha namorada, a minha melhor amiga e a minha pessoa preferida, tudo ao mesmo tempo. eu escolho você. de novo, e de novo, e de novo.'
+    },
+    {
+      ic:'🎄', mes:12, dia:25, ocasiao:'feliz natal',
+      carta:'feliz natal, meu amor.\no meu melhor presente já chegou faz tempo, e é você. que essa noite seja quentinha, do lado de quem a gente ama, e que o próximo ano traga ainda mais nós dois. te amo, e o meu maior desejo de natal é continuar te fazendo feliz.'
+    },
+    {
+      ic:'🎆', mes:1, dia:1, ocasiao:'feliz ano novo',
+      carta:'feliz ano novo, gabryella.\nmais um ano começando, e eu só tenho um pedido pro universo: que ele tenha você em cada dia. obrigado por ter feito do ano que passou um dos melhores da minha vida. bora escrever mais um capítulo da nossa história juntos? eu não largo a sua mão. feliz ano novo, meu amor.'
+    },
+  ];
+
+  function hojeMeiaNoite(){ const h=new Date(); return new Date(h.getFullYear(), h.getMonth(), h.getDate()); }
+  function proxima(mes,dia){
+    const h=hojeMeiaNoite(); let a=new Date(h.getFullYear(), mes-1, dia);
+    if (a < h) a=new Date(h.getFullYear()+1, mes-1, dia);
+    return a;
+  }
+  function diasAte(mes,dia){ return Math.round((proxima(mes,dia)-hojeMeiaNoite())/86400000); }
+  function aberta(mes,dia){ const h=new Date(); return (h.getMonth()+1===mes && h.getDate()===dia); }
+
+  const grade = document.getElementById('grade');
+  const overlay = document.getElementById('overlay');
+
+  CAPSULAS.forEach((c) => {
+    const estaAberta = PREVIA || aberta(c.mes, c.dia);
+    const el = document.createElement('div');
+    el.className = 'capsula' + (estaAberta ? ' aberta' : '');
+    const dias = diasAte(c.mes, c.dia);
+    let status;
+    if (estaAberta) status = 'a carta abriu. toque pra ler 💛';
+    else if (dias === 1) status = 'falta 1 dia pra abrir';
+    else status = 'faltam ' + dias + ' dias pra abrir';
+    el.innerHTML =
+      '<div class="selo">' + (estaAberta ? '💌' : '🔒') + '</div>' +
+      '<div class="txt"><div class="ocasiao">' + c.ocasiao + '</div>' +
+      '<div class="data">' + c.dia + ' de ' + MESES[c.mes-1] + '</div>' +
+      '<div class="status">' + status + '</div></div>' +
+      '<div class="seta">' + (estaAberta ? '→' : '') + '</div>';
+    el.addEventListener('click', () => {
+      if (estaAberta) abrir(c);
+      else { el.classList.remove('tremer'); void el.offsetWidth; el.classList.add('tremer'); }
+    });
+    grade.appendChild(el);
+  });
+
+  function abrir(c){
+    document.getElementById('mOc').textContent = c.dia + ' de ' + MESES[c.mes-1];
+    document.getElementById('mTit').textContent = c.ocasiao;
+    document.getElementById('mCarta').textContent = c.carta;
+    overlay.classList.add('aberto');
+  }
+  document.getElementById('fechar').addEventListener('click', () => overlay.classList.remove('aberto'));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('aberto'); });
+
+  (function(){ const cont=document.getElementById('petals'); for(let i=0;i<12;i++){ const p=document.createElement('div'); p.className='petal'; p.textContent='💛';
+    p.style.left=(Math.random()*100)+'vw'; p.style.fontSize=(14+Math.random()*14)+'px';
+    const d=9+Math.random()*9; p.style.animationDuration=d+'s'; p.style.animationDelay=(-Math.random()*d)+'s'; cont.appendChild(p);} })();
+</script>
+</body>
+</html>
