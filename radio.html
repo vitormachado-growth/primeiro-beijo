@@ -372,24 +372,38 @@
 
   let ordem = [], idx = 0;
 
-  /* ====== locutor ====== */
+  /* ====== locutor (voz de IA) ====== */
+  const WELCOME = { txt: 'rádio gv no ar. essa primeira vai pra você, gabryella.', src: 'locucoes/welcome.mp3' };
   const DJ = [
-    'essa próxima é dedicada a você, gabryella.',
-    'aqui é a rádio gv, tocando só o que fala de você.',
-    'sobe o som: mais uma pra nós dois.',
-    'gabryella, essa música me lembra a gente.',
-    'com todo o meu amor, do vitor pra você.',
-    'essa entra direto na lista das nossas favoritas.',
-    'no ar, a estação do nosso primeiro beijo.',
-    'presta atenção na letra: é a nossa cara.',
+    { txt: 'essa próxima é dedicada a você, gabryella.',      src: 'locucoes/loc1.mp3' },
+    { txt: 'aqui é a rádio gv, tocando só o que fala de você.', src: 'locucoes/loc2.mp3' },
+    { txt: 'sobe o som: mais uma pra nós dois.',               src: 'locucoes/loc3.mp3' },
+    { txt: 'gabryella, essa música me lembra a gente.',        src: 'locucoes/loc4.mp3' },
+    { txt: 'com todo o meu amor, do vitor pra você.',          src: 'locucoes/loc5.mp3' },
+    { txt: 'essa entra direto na lista das nossas favoritas.', src: 'locucoes/loc6.mp3' },
+    { txt: 'no ar, a estação do nosso primeiro beijo.',        src: 'locucoes/loc7.mp3' },
+    { txt: 'presta atenção na letra, essa é a nossa cara.',    src: 'locucoes/loc8.mp3' },
   ];
-  let djIdx = 0, locTimer = null;
-  function anunciar(msg) {
-    locTxt.textContent = msg;
-    locucao.classList.add('mostrar');
+  const voz = new Audio();
+  let djIdx = 0, locTimer = null, ducking = false;
+
+  function anunciar(item) {
     clearTimeout(locTimer);
-    locTimer = setTimeout(() => locucao.classList.remove('mostrar'), 5200);
+    locTxt.textContent = item.txt;
+    locucao.classList.add('mostrar');
+    // abaixa a música e fala por cima
+    ducking = true;
+    audio.volume = parseFloat(vol.value) * 0.12;
+    voz.src = item.src;
+    voz.play().catch(() => restaurar());
   }
+  function restaurar() {
+    ducking = false;
+    audio.volume = parseFloat(vol.value);
+    locTimer = setTimeout(() => locucao.classList.remove('mostrar'), 900);
+  }
+  voz.addEventListener('ended', restaurar);
+  voz.addEventListener('error', restaurar);
   function djProxima() { const m = DJ[djIdx % DJ.length]; djIdx++; return m; }
 
   function embaralhar(a) {
@@ -444,7 +458,7 @@
     const r = barra.getBoundingClientRect();
     audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
   });
-  vol.addEventListener('input', () => { audio.volume = parseFloat(vol.value); });
+  vol.addEventListener('input', () => { if (!ducking) audio.volume = parseFloat(vol.value); });
 
   document.getElementById('btnPlay').addEventListener('click', () => { audio.paused ? tocar() : pausar(); });
   document.getElementById('btnNext').addEventListener('click', proxima);
@@ -487,7 +501,7 @@
     idx = 0;
     carregar(idx);
     tocar();
-    setTimeout(() => anunciar('rádio gv no ar. essa primeira vai pra você, gabryella.'), 900);
+    anunciar(WELCOME);
   });
 
   ordem = embaralhar(PLAYLIST);
