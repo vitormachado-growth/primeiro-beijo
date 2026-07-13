@@ -292,7 +292,6 @@
     <div class="agora-rot">tocando agora</div>
     <div class="titulo" id="titulo">—</div>
     <div class="artista" id="artista"></div>
-    <div class="contador" id="contador"></div>
 
     <div class="porque" id="porque"><span class="rot">por que essa é nossa</span><span id="porqueTxt"></span></div>
 
@@ -408,7 +407,6 @@
   const discoFoto = document.getElementById('discoFoto');
   const titulo  = document.getElementById('titulo');
   const artista = document.getElementById('artista');
-  const contador= document.getElementById('contador');
   const prox    = document.getElementById('prox');
   const ico     = document.getElementById('ico');
   const barra   = document.getElementById('barra');
@@ -463,7 +461,6 @@
     audio.src = f.src;
     titulo.textContent = f.nome;
     artista.textContent = f.artista || '';
-    contador.textContent = 'faixa ' + (i + 1) + ' de ' + ordem.length;
     porqueTxt.textContent = f.pq || '';
     discoFoto.src = FOTOS[i % FOTOS.length];
     // modo especial quando toca a nossa música
