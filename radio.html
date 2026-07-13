@@ -40,7 +40,17 @@
   }
 
   /* corações de fundo */
-  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .foto-fundo {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('fotos/beijo.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0; filter: blur(3px);
+    transition: opacity 1.6s ease;
+    pointer-events: none;
+  }
+  body.nossa-musica .foto-fundo { opacity: 0.42; animation: kenburns 18s ease-in-out infinite alternate; }
+  @keyframes kenburns { from { transform: scale(1.06); } to { transform: scale(1.2); } }
   .petal { position: absolute; top: -40px; opacity: 0.6; animation: fall linear infinite; will-change: transform; }
   @keyframes fall {
     0% { transform: translateY(-40px) rotate(0deg); opacity: 0; }
@@ -237,6 +247,7 @@
 </head>
 <body>
 
+  <div class="foto-fundo"></div>
   <div class="petals" id="petals"></div>
 
   <div class="locucao" id="locucao"><span class="mic">🎙️</span><span id="locTxt"></span></div>
