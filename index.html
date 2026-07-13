@@ -497,6 +497,32 @@
     position: relative;
     z-index: 2;
   }
+  .rodape .link-radio {
+    display: inline-block;
+    margin-bottom: 22px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+    text-decoration: none;
+    border: 1.5px solid var(--amarelo-forte);
+    background: var(--creme);
+    padding: 13px 28px;
+    border-radius: 999px;
+    box-shadow: 0 8px 22px var(--sombra);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .rodape .link-radio:hover { transform: translateY(-2px); background: var(--amarelo-suave); }
+  .rodape .link-radio small {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--dourado);
+    margin-bottom: 3px;
+  }
 
   /* =========================================================
      PLAYER DE MUSICA (flutuante)
@@ -974,7 +1000,11 @@
   </section>
 
   <div class="rodape">
-    feito com muito amor · 1 ano de nós
+    <a href="radio.html" class="link-radio" target="_blank" rel="noopener">
+      <small>de bônus, pra você</small>
+      sintonize a nossa rádio gv
+    </a>
+    <div>feito com muito amor · 1 ano de nós</div>
   </div>
 
   <!-- ============ PLAYER DE MUSICA ============ -->
