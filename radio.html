@@ -35,6 +35,7 @@
       radial-gradient(circle at 20% 12%, var(--amarelo-claro) 0%, transparent 45%),
       radial-gradient(circle at 85% 88%, var(--amarelo-suave) 0%, transparent 50%),
       linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    transition: background 1.4s ease;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -210,6 +211,13 @@
     background: linear-gradient(160deg, var(--amarelo-claro), var(--amarelo-suave));
     border-color: var(--amarelo-forte);
   }
+  body.nossa-musica {
+    background:
+      radial-gradient(circle at 18% 10%, var(--amarelo-medio) 0%, transparent 50%),
+      radial-gradient(circle at 85% 90%, var(--amarelo-forte) 0%, transparent 55%),
+      linear-gradient(160deg, var(--amarelo-claro) 0%, #FFC24D 100%) !important;
+  }
+  body.nossa-musica .radio { background: linear-gradient(170deg, #fffdf4, var(--amarelo-suave)); }
 
   /* locutor / vinheta */
   .locucao {
@@ -442,7 +450,8 @@
     const especial = f.nome === 'cheiro de amor';
     const jaEra = document.body.classList.contains('nossa-musica');
     document.body.classList.toggle('nossa-musica', especial);
-    if (especial && !jaEra) chuvaDeCoracoes();
+    if (especial && !jaEra) iniciarChuva();
+    if (!especial && jaEra) pararChuva();
     const p = ordem[(i + 1) % ordem.length];
     prox.textContent = p.artista ? (p.nome + ' · ' + p.artista) : p.nome;
   }
@@ -510,20 +519,25 @@
   })();
 
   /* chuva de corações quando toca a nossa música */
-  function chuvaDeCoracoes() {
-    for (let k = 0; k < 24; k++) {
-      const p = document.createElement('div');
-      p.className = 'petal';
-      p.textContent = '💛';
-      p.style.left = (Math.random() * 100) + 'vw';
-      p.style.fontSize = (16 + Math.random() * 20) + 'px';
-      const d = 4 + Math.random() * 3;
-      p.style.animationDuration = d + 's';
-      p.style.animationDelay = (Math.random() * 0.6) + 's';
-      petalsCont.appendChild(p);
-      setTimeout(() => p.remove(), (d + 1) * 1000);
-    }
+  function soltarCoracao(delayMax) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = Math.random() < 0.5 ? '💛' : '❤️';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.fontSize = (16 + Math.random() * 20) + 'px';
+    const d = 4 + Math.random() * 3;
+    p.style.animationDuration = d + 's';
+    p.style.animationDelay = (Math.random() * (delayMax || 0)) + 's';
+    petalsCont.appendChild(p);
+    setTimeout(() => p.remove(), (d + (delayMax || 0) + 1) * 1000);
   }
+  let chuvaTimer = null;
+  function iniciarChuva() {
+    for (let k = 0; k < 22; k++) soltarCoracao(0.6);   // estouro inicial
+    if (chuvaTimer) return;
+    chuvaTimer = setInterval(() => { soltarCoracao(0); soltarCoracao(0); }, 380); // contínua
+  }
+  function pararChuva() { clearInterval(chuvaTimer); chuvaTimer = null; }
 
   /* ligar o rádio */
   const ligar = document.getElementById('ligar');
