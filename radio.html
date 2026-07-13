@@ -148,6 +148,21 @@
   .titulo { text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 31px; font-weight: 600; color: var(--texto); line-height: 1.12; margin-top: 3px; min-height: 36px; }
   .artista { text-align: center; font-size: 14px; color: var(--texto-suave); margin-top: 4px; letter-spacing: 0.5px; }
   .contador { text-align: center; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); margin-top: 8px; opacity: .8; }
+  .porque {
+    margin: 12px 6px 0;
+    padding: 12px 16px;
+    background: var(--amarelo-suave);
+    border: 1px solid var(--amarelo-claro);
+    border-radius: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--texto);
+    text-align: center;
+    transition: opacity 0.5s ease;
+  }
+  .porque .rot { display: block; font-family: 'Quicksand', sans-serif; font-style: normal; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); margin-bottom: 5px; }
 
   .progresso { margin: 16px 4px 6px; }
   .barra { height: 6px; background: var(--amarelo-claro); border-radius: 999px; overflow: hidden; cursor: pointer; }
@@ -210,6 +225,8 @@
     <div class="titulo" id="titulo">—</div>
     <div class="artista" id="artista"></div>
     <div class="contador" id="contador"></div>
+
+    <div class="porque" id="porque"><span class="rot">por que essa é nossa</span><span id="porqueTxt"></span></div>
 
     <div class="progresso">
       <div class="barra" id="barra"><div class="preenchido" id="preenchido"></div></div>
@@ -276,6 +293,45 @@
     { src: 'musicas/Gabriela.mp3',                                                         nome: 'gabriela',                 artista: 'jorge ben jor' },
   ];
 
+  /* o "porquê" de cada música (mesma ordem da PLAYLIST) */
+  const PORQUES = [
+    'porque é exatamente isso que eu tenho por você. uma mania boa, dessas que não passam.',
+    'você é a minha melhor amiga e o meu amor no mesmo abraço. essa música é a nossa cara.',
+    'a trilha perfeita pra lembrar do nosso primeiro beijo, lá no ponto de ônibus do gramacho.',
+    'porque o que eu sinto por você não tem segunda intenção nenhuma. é puro, do jeito do djavan.',
+    'porque eu me perco toda vez que olho nos seus olhos. e não faço questão de me achar.',
+    'ainda bem que eu te encontrei. a minha gratidão em forma de música por ter você.',
+    'a nossa música. foi tudo tão de repente, você quase disse não, mas o seu jeito de me olhar falou mais alto.',
+    'pros dias em que a saudade aperta, mesmo com você por perto.',
+    'porque com você até outro planeta parece estar logo ali do lado.',
+    'porque me apaixonar por você foi o espetáculo mais estranho e mais lindo que eu já vivi.',
+    'porque com você eu deixei o coração no chão, sem medo de me entregar.',
+    'porque eu quero partilhar tudo com você. os dias bons e os difíceis também.',
+    'deixa a gente acontecer. foi o que a gente fez, e olha no que deu.',
+    'porque a gente se sintonizou na mesma frequência.',
+    'porque em toda a minha vida, entre tantos lugares e pessoas, é você que eu amo mais.',
+    'porque desde o comecinho isso nunca foi brincadeira. sempre foi caso sério.',
+    'pela nossa fofura e os apelidos bobos que só a gente tem.',
+    'olha só onde a gente foi chegar. de uma implicância boba a um ano de nós.',
+    'que dure muito. mas, pelo tempo que durar, que seja intenso como é.',
+    'no comecinho eu me perguntava isso. hoje eu já sei a resposta. é amor.',
+    'porque foi assim mesmo, sem planejar, que a gente aconteceu.',
+    'porque te encontrar foi o maior combo de sorte da minha vida.',
+    'porque é isso que você é pra mim: uma deusa.',
+    'porque com você eu aprendi todas as linguagens do amor.',
+    'porque eu escolheria você em qualquer vida.',
+    'porque, do meu ponto de vista, não existe ninguém como você.',
+    'porque eu estou perigosamente apaixonado por você.',
+    'porque perto de você eu me sinto o mais amado do mundo.',
+    'porque tudo o que eu vivo com você vira música de amor.',
+    'porque você tem esse gostinho de aconchego, de cravo e canela.',
+    'porque em toda a minha andança, foi em você que eu quis parar.',
+    'porque a gente encontrou o nosso ritmo perfeito.',
+    'porque o que eu sinto por você é fundo que nem oceano.',
+    'porque essa é a sua música. o seu nome, a minha pessoa preferida.',
+  ];
+  PLAYLIST.forEach((t, i) => { t.pq = PORQUES[i]; });
+
   /* fotos que giram como rótulo do vinil (troca a cada música) */
   const FOTOS = ['fotos/beijo.jpg', 'fotos/primeira.jpg', 'fotos/foto1.jpg', 'fotos/foto3.jpg', 'fotos/foto4.jpg'];
 
@@ -293,6 +349,7 @@
   const tTotal  = document.getElementById('tTotal');
   const slogan  = document.getElementById('slogan');
   const vol     = document.getElementById('vol');
+  const porqueTxt = document.getElementById('porqueTxt');
 
   let ordem = [], idx = 0;
 
@@ -315,6 +372,7 @@
     titulo.textContent = f.nome;
     artista.textContent = f.artista || '';
     contador.textContent = 'faixa ' + (i + 1) + ' de ' + ordem.length;
+    porqueTxt.textContent = f.pq || '';
     discoFoto.src = FOTOS[i % FOTOS.length];
     const p = ordem[(i + 1) % ordem.length];
     prox.textContent = p.artista ? (p.nome + ' · ' + p.artista) : p.nome;
