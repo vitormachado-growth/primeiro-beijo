@@ -200,6 +200,21 @@
   /* =========================================================
      SECAO / TIMELINE
      ========================================================= */
+  .contador-juntos {
+    position: relative; z-index: 2;
+    max-width: 640px; margin: 0 auto; padding: 54px 24px 10px;
+    text-align: center;
+  }
+  .contador-juntos .cj-rot { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--dourado); }
+  .contador-juntos .cj-nums { display: flex; justify-content: center; gap: 12px; margin: 18px 0 12px; flex-wrap: wrap; }
+  .contador-juntos .cj-nums > div {
+    background: var(--creme); border: 1px solid var(--amarelo-claro); border-radius: 16px;
+    padding: 14px 8px 10px; min-width: 78px; box-shadow: 0 10px 26px var(--sombra);
+  }
+  .contador-juntos .cj-nums b { display: block; font-family: 'Playfair Display', serif; font-size: clamp(28px, 7vw, 40px); color: var(--dourado-escuro); line-height: 1; font-variant-numeric: tabular-nums; }
+  .contador-juntos .cj-nums small { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); margin-top: 8px; }
+  .contador-juntos .cj-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--texto-suave); }
+
   .secao-titulo {
     text-align: center;
     padding: 70px 24px 10px;
@@ -741,6 +756,18 @@
     <div class="scroll-dica">role para baixo ↓</div>
   </header>
 
+  <!-- ============ CONTADOR JUNTOS ============ -->
+  <section class="contador-juntos">
+    <div class="cj-rot">o nosso amor está rolando há</div>
+    <div class="cj-nums">
+      <div><b id="cj-d">0</b><small>dias</small></div>
+      <div><b id="cj-h">0</b><small>horas</small></div>
+      <div><b id="cj-m">0</b><small>min</small></div>
+      <div><b id="cj-s">0</b><small>seg</small></div>
+    </div>
+    <div class="cj-sub">desde o nosso primeiro beijo, 10 de julho de 2025</div>
+  </section>
+
   <!-- ============ TIMELINE ============ -->
   <section class="secao-titulo">
     <h2>linha do tempo</h2>
@@ -1132,6 +1159,29 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
   }, { threshold: 0.2 });
   document.querySelectorAll('.momento, .faixa').forEach(m => obs.observe(m));
+
+  /* ====== CONTADOR: JUNTOS DESDE O PRIMEIRO BEIJO ====== */
+  (function () {
+    const inicio = new Date(2025, 6, 10, 17, 34, 0); // 10 de julho de 2025, 17:34
+    const dEl = document.getElementById('cj-d');
+    const hEl = document.getElementById('cj-h');
+    const mEl = document.getElementById('cj-m');
+    const sEl = document.getElementById('cj-s');
+    function tick() {
+      let ms = new Date().getTime() - inicio.getTime();
+      if (ms < 0) ms = 0;
+      const d = Math.floor(ms / 86400000); ms -= d * 86400000;
+      const h = Math.floor(ms / 3600000);  ms -= h * 3600000;
+      const m = Math.floor(ms / 60000);     ms -= m * 60000;
+      const s = Math.floor(ms / 1000);
+      dEl.textContent = d;
+      hEl.textContent = h;
+      mEl.textContent = String(m).padStart(2, '0');
+      sEl.textContent = String(s).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 
   /* =========================================================
      >>>>>  A NOSSA PLAYLIST  <<<<<
