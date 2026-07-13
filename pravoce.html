@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Pra quando você... 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Playfair+Display:ital,wght@0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --amarelo-suave:   #FFF8E1;
+    --amarelo-claro:   #FFECB3;
+    --amarelo-medio:   #FFD54F;
+    --amarelo-forte:   #FFC107;
+    --dourado:         #E6A817;
+    --dourado-escuro:  #B8860B;
+    --creme:           #FFFDF6;
+    --texto:           #5A4A2A;
+    --texto-suave:     #8A7A55;
+    --sombra:          rgba(184, 134, 11, 0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--texto);
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 18% 12%, var(--amarelo-claro) 0%, transparent 45%),
+      radial-gradient(circle at 85% 88%, var(--amarelo-suave) 0%, transparent 50%),
+      linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petal { position: absolute; top: -40px; opacity: 0.55; animation: fall linear infinite; }
+  @keyframes fall { 0%{ transform: translateY(-40px) rotate(0); opacity:0 } 10%{opacity:.55} 90%{opacity:.55} 100%{ transform: translateY(105vh) rotate(360deg); opacity:0 } }
+
+  .wrap { position: relative; z-index: 2; max-width: 780px; margin: 0 auto; padding: 64px 22px 80px; }
+  header { text-align: center; margin-bottom: 40px; }
+  header .coracao { font-size: 46px; animation: bater 1.8s ease-in-out infinite; }
+  @keyframes bater { 0%,100%{transform:scale(1)} 15%{transform:scale(1.14)} 30%{transform:scale(1)} 45%{transform:scale(1.1)} }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 9vw, 56px); color: var(--texto); margin-top: 12px; }
+  header p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(17px, 4.5vw, 22px); color: var(--texto-suave); margin-top: 8px; }
+
+  .grade { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 520px) { .grade { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--creme);
+    border: 1px solid var(--amarelo-claro);
+    border-radius: 20px;
+    padding: 26px 22px;
+    box-shadow: 0 12px 30px var(--sombra);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px var(--sombra); }
+  .card:active { transform: scale(0.98); }
+  .card .ic { font-size: 34px; }
+  .card .pre { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); margin: 12px 0 4px; }
+  .card .fr { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 600; color: var(--texto); line-height: 1.2; }
+
+  .voltar { display: block; text-align: center; margin-top: 40px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado-escuro); text-decoration: none; }
+
+  /* modal */
+  .overlay {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(60, 45, 15, 0.55);
+    backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 22px;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .overlay.aberto { opacity: 1; visibility: visible; }
+  .modal {
+    background: var(--creme);
+    border-radius: 24px;
+    max-width: 500px; width: 100%;
+    padding: 34px 30px 26px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+    position: relative;
+    transform: translateY(24px) scale(0.96);
+    transition: transform 0.4s cubic-bezier(.5,1.3,.5,1);
+    max-height: 88vh; overflow-y: auto;
+  }
+  .overlay.aberto .modal { transform: translateY(0) scale(1); }
+  .modal .fechar { position: absolute; top: 14px; right: 16px; font-size: 22px; color: var(--texto-suave); background: none; border: none; cursor: pointer; line-height: 1; }
+  .modal .sit { text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); }
+  .modal .sit-fr { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(24px, 6vw, 32px); color: var(--texto); margin: 4px 0 20px; }
+  .modal .msg { font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 5vw, 23px); line-height: 1.7; color: var(--texto); font-style: italic; text-align: center; }
+  .modal .assina { text-align: center; margin-top: 18px; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--dourado-escuro); }
+
+  .mini {
+    margin-top: 24px; padding-top: 18px; border-top: 1px dashed var(--amarelo-medio);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .mini .btn {
+    flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+    background: var(--amarelo-forte); color: #fff; border: none; cursor: pointer;
+    font-size: 17px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 16px var(--sombra);
+  }
+  .mini .info { text-align: left; line-height: 1.25; }
+  .mini .info .rot { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dourado); }
+  .mini .info .nm { font-size: 15px; font-weight: 600; color: var(--texto); }
+  .mini .info .ar { font-size: 12px; color: var(--texto-suave); }
+  .mini .ondas { margin-left: auto; display: inline-flex; gap: 3px; align-items: flex-end; height: 16px; }
+  .mini .ondas i { width: 3px; background: var(--amarelo-forte); border-radius: 2px; height: 4px; animation: onda 1s ease-in-out infinite; animation-play-state: paused; }
+  .mini.tocando .ondas i { animation-play-state: running; }
+  .mini .ondas i:nth-child(2){animation-delay:.2s} .mini .ondas i:nth-child(3){animation-delay:.4s} .mini .ondas i:nth-child(4){animation-delay:.1s}
+  @keyframes onda { 0%,100%{height:4px} 50%{height:16px} }
+</style>
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="coracao">💛</div>
+      <h1>pra quando você...</h1>
+      <p>toque no que você estiver sentindo agora. eu deixei um pedacinho de mim aqui pra cada momento seu.</p>
+    </header>
+
+    <div class="grade" id="grade"></div>
+
+    <a class="voltar" href="index.html">← voltar pra nossa história</a>
+  </div>
+
+  <!-- modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <button class="fechar" id="fechar">✕</button>
+      <div class="sit">pra quando você</div>
+      <div class="sit-fr" id="mSit"></div>
+      <div class="msg" id="mMsg"></div>
+      <div class="assina">— vitor</div>
+      <div class="mini" id="mini">
+        <button class="btn" id="miniBtn">❚❚</button>
+        <div class="info">
+          <div class="rot">deixei essa tocando pra você</div>
+          <div class="nm" id="mNome"></div>
+          <div class="ar" id="mArt"></div>
+        </div>
+        <span class="ondas"><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+<script>
+  const SITUACOES = [
+    {
+      ic: '💛', fr: 'estiver com saudade de mim',
+      msg: 'respira. eu também estou com saudade, do mesmo tamanho ou maior. por mais longe que a gente esteja, você é a primeira coisa que eu penso quando acordo e a última antes de dormir. já já a gente se vê, e eu vou te abraçar tão forte que a saudade nem vai lembrar que existiu.',
+      src: 'musicas/ANAVITÓRIA, Lenine - Lisboa (visualizer).mp3', nome: 'lisboa', art: 'anavitória & lenine'
+    },
+    {
+      ic: '🫂', fr: 'estiver triste',
+      msg: 'vem cá. você não precisa estar bem agora, e tá tudo bem não estar. eu só quero que você saiba que eu estou aqui, do seu lado, pra qualquer coisa. o dia ruim passa, eu prometo. e eu vou estar aqui quando ele passar, e também enquanto ele não passa. você não está sozinha. nunca.',
+      src: 'musicas/Vanessa da Mata - Ainda Bem (Áudio Oficial).mp3', nome: 'ainda bem', art: 'vanessa da mata'
+    },
+    {
+      ic: '🌙', fr: 'não conseguir dormir',
+      msg: 'desliga o celular, meu amor. deita, respira fundo e imagina que eu estou aí do seu lado, te abraçando, com a minha mão na sua. pensa num lugar bom que a gente já foi juntos. e se não der pra dormir, tudo bem, eu prefiro te imaginar acordada pensando na gente. bons sonhos, minha coisa mais linda.',
+      src: 'musicas/Miúcha, Antonio Carlos Jobim - Pela Luz dos Olhos Teus (Pseudo Vídeo).mp3', nome: 'pela luz dos olhos teus', art: 'miúcha & tom jobim'
+    },
+    {
+      ic: '😄', fr: 'precisar rir',
+      msg: 'lembra da vez que eu errei o seu nome bem na hora que a gente ia se beijar? pois é. eu sou capaz das maiores mancadas só pra te ver rindo. você fica linda quando ri, sabia? então ri, nem que seja de mim. eu topo ser motivo de piada pra sempre, se for pra ver esse seu sorriso.',
+      src: 'musicas/Xuxuzinho.mp3', nome: 'xuxuzinho', art: ''
+    },
+    {
+      ic: '🍃', fr: 'estiver ansiosa',
+      msg: 'calma, respira comigo. inspira... segura... solta. de novo. seja lá o que for, você vai dar conta, você sempre dá. e mesmo que não dê, eu estou aqui pra segurar a sua mão. não carrega tudo sozinha, deixa eu carregar um pouco com você. uma coisa de cada vez. eu acredito em você mais do que você mesma.',
+      src: 'musicas/Lagum - Deixa (Letra)  ft. Ana Gabriela.mp3', nome: 'deixa', art: 'lagum'
+    },
+    {
+      ic: '❤️', fr: 'só quiser ouvir que eu te amo',
+      msg: 'eu te amo. simples assim, e do tamanho do mundo. te amo de manhã, te amo cansado, te amo até brigado, te amo de longe e de pertinho. você é a melhor coisa que já me aconteceu, e eu não canso de dizer. te amo, gabryella. sempre.',
+      src: 'musicas/Maria Bethânia - Cheiro De Amor (Lyric Video).mp3', nome: 'cheiro de amor', art: 'maria bethânia'
+    },
+  ];
+
+  const grade = document.getElementById('grade');
+  SITUACOES.forEach((s, i) => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.innerHTML = '<div class="ic">' + s.ic + '</div><span class="pre">pra quando você</span><div class="fr">' + s.fr + '</div>';
+    c.addEventListener('click', () => abrir(i));
+    grade.appendChild(c);
+  });
+
+  const overlay = document.getElementById('overlay');
+  const audio = document.getElementById('audio');
+  const mini = document.getElementById('mini');
+  const miniBtn = document.getElementById('miniBtn');
+
+  function abrir(i) {
+    const s = SITUACOES[i];
+    document.getElementById('mSit').textContent = s.fr;
+    document.getElementById('mMsg').textContent = s.msg;
+    document.getElementById('mNome').textContent = s.nome;
+    document.getElementById('mArt').textContent = s.art;
+    overlay.classList.add('aberto');
+    audio.src = s.src;
+    audio.play().then(() => { miniBtn.textContent = '❚❚'; mini.classList.add('tocando'); }).catch(() => { miniBtn.textContent = '▶'; mini.classList.remove('tocando'); });
+  }
+  function fechar() {
+    overlay.classList.remove('aberto');
+    audio.pause();
+    mini.classList.remove('tocando');
+  }
+  document.getElementById('fechar').addEventListener('click', fechar);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) fechar(); });
+  miniBtn.addEventListener('click', () => {
+    if (audio.paused) { audio.play(); miniBtn.textContent = '❚❚'; mini.classList.add('tocando'); }
+    else { audio.pause(); miniBtn.textContent = '▶'; mini.classList.remove('tocando'); }
+  });
+
+  /* corações */
+  (function () {
+    const cont = document.getElementById('petals');
+    for (let i = 0; i < 12; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal'; p.textContent = '💛';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.fontSize = (14 + Math.random() * 14) + 'px';
+      const d = 9 + Math.random() * 9;
+      p.style.animationDuration = d + 's';
+      p.style.animationDelay = (-Math.random() * d) + 's';
+      cont.appendChild(p);
+    }
+  })();
+</script>
+</body>
+</html>
