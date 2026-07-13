@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Motivos que eu te amo 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Playfair+Display:ital,wght@0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --amarelo-suave:#FFF8E1; --amarelo-claro:#FFECB3; --amarelo-medio:#FFD54F;
+    --amarelo-forte:#FFC107; --dourado:#E6A817; --dourado-escuro:#B8860B;
+    --creme:#FFFDF6; --texto:#5A4A2A; --texto-suave:#8A7A55; --sombra:rgba(184,134,11,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Quicksand',sans-serif; color:var(--texto);
+    min-height:100vh; min-height:100svh; overflow-x:hidden;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    background:
+      radial-gradient(circle at 18% 12%, var(--amarelo-claro) 0%, transparent 45%),
+      radial-gradient(circle at 85% 88%, var(--amarelo-suave) 0%, transparent 50%),
+      linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal { position:absolute; top:-40px; opacity:.55; animation:fall linear infinite; }
+  @keyframes fall { 0%{transform:translateY(-40px) rotate(0);opacity:0} 10%{opacity:.55} 90%{opacity:.55} 100%{transform:translateY(105vh) rotate(360deg);opacity:0} }
+
+  .wrap { position:relative; z-index:2; width:100%; max-width:480px; text-align:center; }
+  .top-rot { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--dourado); }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(30px,8vw,44px); color:var(--texto); margin:6px 0 26px; }
+
+  .cartao {
+    background:var(--creme); border:1px solid var(--amarelo-claro); border-radius:26px;
+    box-shadow:0 20px 50px var(--sombra); padding:40px 30px; min-height:260px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .num {
+    font-family:'Playfair Display',serif; font-size:15px; font-weight:600;
+    color:var(--dourado-escuro); background:var(--amarelo-suave);
+    padding:5px 16px; border-radius:999px; letter-spacing:1px; margin-bottom:20px;
+  }
+  .motivo {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:clamp(23px,6vw,30px); line-height:1.4; color:var(--texto);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .motivo.saindo { opacity:0; transform:translateY(12px); }
+  .coracaozinho { font-size:26px; margin-top:22px; animation:bater 1.8s ease-in-out infinite; }
+  @keyframes bater { 0%,100%{transform:scale(1)} 15%{transform:scale(1.18)} 30%{transform:scale(1)} 45%{transform:scale(1.12)} }
+
+  .btn {
+    margin-top:26px; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700;
+    letter-spacing:1.5px; text-transform:uppercase; color:#fff; background:var(--amarelo-forte);
+    border:none; border-radius:999px; padding:16px 34px; cursor:pointer;
+    box-shadow:0 10px 24px var(--sombra); transition:transform .15s ease;
+  }
+  .btn:hover { transform:translateY(-2px); }
+  .btn:active { transform:scale(.96); }
+  .vistos { margin-top:16px; font-size:12px; letter-spacing:1px; color:var(--texto-suave); }
+  .voltar { display:inline-block; margin-top:26px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--dourado-escuro); text-decoration:none; }
+</style>
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+  <div class="wrap">
+    <div class="top-rot">um por um, pra você</div>
+    <h1>motivos que eu te amo</h1>
+
+    <div class="cartao">
+      <div class="num" id="num">motivo nº 1</div>
+      <div class="motivo" id="motivo">toque no botão pra descobrir o primeiro.</div>
+      <div class="coracaozinho">💛</div>
+    </div>
+
+    <button class="btn" id="btn">mais um motivo</button>
+    <div class="vistos" id="vistos"></div>
+    <br>
+    <a class="voltar" href="index.html">← voltar pra nossa história</a>
+  </div>
+
+<script>
+  const MOTIVOS = [
+    'porque você respondeu "não" só pra me perturbar, e eu me apaixonei ali mesmo.',
+    'pelo jeito que você fica linda quando ri.',
+    'porque com você até um ponto de ônibus virou o lugar mais especial do mundo.',
+    'porque você me aguenta, e olha que não é fácil.',
+    'pela sua fala mansa, que me acalma.',
+    'porque você é a minha melhor amiga e o meu amor no mesmo abraço.',
+    'porque você ficou comigo na fase mais difícil da minha vida.',
+    'pelo jeito que você me olha.',
+    'porque você me xingou enquanto eu massageava o seu joelho, e eu achei a maior graça.',
+    'porque você é teimosa igual a mim, e mesmo assim a gente se entende.',
+    'pelos nossos apelidos bobos que só a gente entende.',
+    'porque você me escolhe todo dia, até nos meus dias ruins.',
+    'porque o amarelo, a nossa cor, ficou mais bonito depois de você.',
+    'pela sua risada, que é o meu som preferido.',
+    'porque você comemora as minhas vitórias como se fossem suas.',
+    'porque até quando a gente briga, eu só penso em fazer as pazes.',
+    'pelo cheiro de você.',
+    'porque você não desistiu de mim, nem quando eu errei o seu nome.',
+    'porque você me faz querer ser uma pessoa melhor.',
+    'pela forma como você se importa com as pessoas.',
+    'porque do seu lado até o dia mais difícil fica mais leve.',
+    'porque você é a primeira coisa que eu penso quando acordo.',
+    'pela sua inteligência, que me impressiona todo dia.',
+    'porque você me acalma só com a sua presença.',
+    'porque você é carinhosa do jeitinho que eu preciso.',
+    'pela paciência que você tem comigo.',
+    'porque você me faz rir mesmo quando eu não quero rir.',
+    'porque a gente combina até no jeito de implicar um com o outro.',
+    'porque você é forte, mesmo quando se sente pequena.',
+    'pela sua determinação em tudo que você faz.',
+    'porque você virou o meu porto seguro sem nem tentar.',
+    'porque eu me sinto em casa quando estou com você.',
+    'pela sua beleza, que não é só de fora.',
+    'porque você acredita em mim mais do que eu mesmo.',
+    'porque você topa as minhas ideias mais malucas.',
+    'porque com você o tempo passa rápido demais.',
+    'pela sua mão, que encaixa perfeitamente na minha.',
+    'porque você me entende sem eu precisar falar.',
+    'porque você me perdoa quando eu mereço e quando eu não mereço.',
+    'porque você é a pessoa mais especial que eu já conheci.',
+    'porque você fica linda de manhã, despenteada, do jeito mais real.',
+    'porque você me faz sentir amado todos os dias.',
+    'porque um ano com você passou como se fosse um dia.',
+    'porque você é a minha música preferida, tocando sem parar.',
+    'porque eu escolheria você em qualquer vida.',
+    'porque a gente começou com uma implicância boba e virou tudo isso.',
+    'pela paz que eu sinto quando te abraço.',
+    'porque você me faz acreditar em coisas boas.',
+    'porque você é o meu lugar preferido no mundo.',
+    'porque, simplesmente, é você. e sempre vai ser você.',
+  ];
+
+  function embaralhar(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  let ordem = embaralhar(MOTIVOS.map((t,i)=>({t,n:i+1})));
+  let idx = -1, vistos = 0;
+
+  const elMotivo = document.getElementById('motivo');
+  const elNum = document.getElementById('num');
+  const elVistos = document.getElementById('vistos');
+  const btn = document.getElementById('btn');
+  const petalsCont = document.getElementById('petals');
+
+  function proximo() {
+    idx++;
+    if (idx >= ordem.length) { ordem = embaralhar(ordem); idx = 0; }
+    const m = ordem[idx];
+    elMotivo.classList.add('saindo');
+    setTimeout(() => {
+      elMotivo.textContent = m.t;
+      elNum.textContent = 'motivo nº ' + m.n;
+      elMotivo.classList.remove('saindo');
+    }, 350);
+    vistos = Math.min(vistos + 1, MOTIVOS.length);
+    elVistos.textContent = 'você já viu ' + vistos + ' de ' + MOTIVOS.length + ' motivos';
+    chuva();
+  }
+  btn.addEventListener('click', () => { proximo(); btn.textContent = 'mais um motivo'; });
+
+  function chuva() {
+    for (let k=0;k<8;k++){
+      const p=document.createElement('div'); p.className='petal'; p.textContent='💛';
+      p.style.left=(Math.random()*100)+'vw'; p.style.fontSize=(16+Math.random()*16)+'px';
+      const d=4+Math.random()*3; p.style.animationDuration=d+'s'; p.style.animationDelay=(Math.random()*0.4)+'s';
+      petalsCont.appendChild(p); setTimeout(()=>p.remove(),(d+1)*1000);
+    }
+  }
+
+  /* corações de fundo */
+  (function(){ for(let i=0;i<12;i++){ const p=document.createElement('div'); p.className='petal'; p.textContent='💛';
+    p.style.left=(Math.random()*100)+'vw'; p.style.fontSize=(14+Math.random()*14)+'px';
+    const d=9+Math.random()*9; p.style.animationDuration=d+'s'; p.style.animationDelay=(-Math.random()*d)+'s';
+    petalsCont.appendChild(p);} })();
+</script>
+</body>
+</html>

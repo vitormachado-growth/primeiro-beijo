@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Os nossos lugares 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Playfair+Display:ital,wght@0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --amarelo-suave:#FFF8E1; --amarelo-claro:#FFECB3; --amarelo-medio:#FFD54F;
+    --amarelo-forte:#FFC107; --dourado:#E6A817; --dourado-escuro:#B8860B;
+    --creme:#FFFDF6; --texto:#5A4A2A; --texto-suave:#8A7A55; --sombra:rgba(184,134,11,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Quicksand',sans-serif; color:var(--texto);
+    min-height:100vh; overflow-x:hidden;
+    background:
+      radial-gradient(circle at 18% 12%, var(--amarelo-claro) 0%, transparent 45%),
+      radial-gradient(circle at 85% 88%, var(--amarelo-suave) 0%, transparent 50%),
+      linear-gradient(160deg, var(--creme) 0%, var(--amarelo-suave) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal { position:absolute; top:-40px; opacity:.5; animation:fall linear infinite; }
+  @keyframes fall { 0%{transform:translateY(-40px) rotate(0);opacity:0} 10%{opacity:.5} 90%{opacity:.5} 100%{transform:translateY(105vh) rotate(360deg);opacity:0} }
+
+  .wrap { position:relative; z-index:2; max-width:680px; margin:0 auto; padding:60px 22px 80px; }
+  header { text-align:center; margin-bottom:16px; }
+  header .ic { font-size:44px; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,8vw,50px); color:var(--texto); margin-top:10px; }
+  header p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(17px,4.5vw,22px); color:var(--texto-suave); margin-top:8px; }
+
+  /* trilha de lugares */
+  .rota { position:relative; margin-top:44px; padding-left:8px; }
+  .rota::before { content:""; position:absolute; left:30px; top:10px; bottom:10px; width:3px; border-radius:3px;
+    background:repeating-linear-gradient(var(--dourado) 0 10px, transparent 10px 18px); }
+  .lugar { position:relative; padding:0 0 40px 74px; }
+  .pino {
+    position:absolute; left:12px; top:2px; width:40px; height:40px; border-radius:50% 50% 50% 0;
+    background:var(--amarelo-forte); transform:rotate(-45deg);
+    box-shadow:0 6px 14px var(--sombra); display:flex; align-items:center; justify-content:center;
+  }
+  .pino span { transform:rotate(45deg); font-size:18px; }
+  .cartao { background:var(--creme); border:1px solid var(--amarelo-claro); border-radius:20px; padding:20px 22px; box-shadow:0 12px 30px var(--sombra); }
+  .cartao .rot { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--dourado); }
+  .cartao h3 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--texto); margin:3px 0 8px; }
+  .cartao p { font-size:15.5px; line-height:1.65; color:var(--texto-suave); }
+  .cartao img { margin-top:14px; width:100%; border-radius:14px; display:block; }
+
+  .voltar { display:block; text-align:center; margin-top:20px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--dourado-escuro); text-decoration:none; }
+</style>
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+  <div class="wrap">
+    <header>
+      <div class="ic">📍</div>
+      <h1>os nossos lugares</h1>
+      <p>cada cantinho onde a nossa história aconteceu.</p>
+    </header>
+
+    <div class="rota">
+      <div class="lugar">
+        <div class="pino"><span>🏐</span></div>
+        <div class="cartao">
+          <div class="rot">onde tudo começou</div>
+          <h3>a quadra das olimpíadas</h3>
+          <p>eu, capitão do time amarelo. você, a líder de torcida. foi aqui, no meio do campeonato, que a nossa primeira conversa aconteceu, com um "não" e um "−3 pontos".</p>
+        </div>
+      </div>
+
+      <div class="lugar">
+        <div class="pino"><span>📦</span></div>
+        <div class="cartao">
+          <div class="rot">a desculpa</div>
+          <h3>o gramacho</h3>
+          <p>o lugar onde eu inventei que precisava "pegar papelão". mas a verdade é que eu só queria mesmo era te ver.</p>
+        </div>
+      </div>
+
+      <div class="lugar">
+        <div class="pino"><span>🏫</span></div>
+        <div class="cartao">
+          <div class="rot">o quase</div>
+          <h3>a nossa sala</h3>
+          <p>onde a gente ficou sozinho e o primeiro beijo quase rolou, até eu errar o seu nome e levar o maior fora. valeu cada segundo de vergonha.</p>
+        </div>
+      </div>
+
+      <div class="lugar">
+        <div class="pino"><span>💛</span></div>
+        <div class="cartao">
+          <div class="rot">o nosso momento</div>
+          <h3>o ponto de ônibus do gramacho</h3>
+          <p>exatamente às 17:34, foi aqui que finalmente aconteceu o nosso primeiro beijo. o mesmo gramacho da desculpa virou o lugar mais importante da nossa história.</p>
+          <img src="fotos/beijo.jpg" alt="o nosso beijo" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <a class="voltar" href="index.html">← voltar pra nossa história</a>
+  </div>
+
+<script>
+  (function(){ const c=document.getElementById('petals'); for(let i=0;i<12;i++){ const p=document.createElement('div'); p.className='petal'; p.textContent='💛';
+    p.style.left=(Math.random()*100)+'vw'; p.style.fontSize=(14+Math.random()*14)+'px';
+    const d=9+Math.random()*9; p.style.animationDuration=d+'s'; p.style.animationDelay=(-Math.random()*d)+'s'; c.appendChild(p);} })();
+</script>
+</body>
+</html>
