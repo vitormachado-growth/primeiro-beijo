@@ -188,11 +188,28 @@
 
   .slogan { text-align: center; margin-top: 16px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--texto-suave); min-height: 22px; transition: opacity 0.6s ease; }
   @keyframes girar { to { transform: rotate(360deg); } }
+
+  /* locutor / vinheta */
+  .locucao {
+    position: fixed; top: 16px; left: 50%; transform: translate(-50%, -160%);
+    z-index: 60; max-width: 92vw;
+    background: var(--dourado-escuro); color: var(--amarelo-suave);
+    font-size: 13px; font-weight: 600; letter-spacing: .3px;
+    padding: 12px 20px; border-radius: 999px;
+    box-shadow: 0 12px 30px var(--sombra);
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0; transition: transform 0.6s cubic-bezier(.5,1.4,.5,1), opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .locucao.mostrar { transform: translate(-50%, 0); opacity: 1; }
+  .locucao .mic { font-size: 15px; flex: 0 0 auto; }
 </style>
 </head>
 <body>
 
   <div class="petals" id="petals"></div>
+
+  <div class="locucao" id="locucao"><span class="mic">🎙️</span><span id="locTxt"></span></div>
 
   <!-- ====== TELA LIGAR ====== -->
   <div id="ligar">
@@ -350,8 +367,30 @@
   const slogan  = document.getElementById('slogan');
   const vol     = document.getElementById('vol');
   const porqueTxt = document.getElementById('porqueTxt');
+  const locucao = document.getElementById('locucao');
+  const locTxt  = document.getElementById('locTxt');
 
   let ordem = [], idx = 0;
+
+  /* ====== locutor ====== */
+  const DJ = [
+    'essa próxima é dedicada a você, gabryella.',
+    'aqui é a rádio gv, tocando só o que fala de você.',
+    'sobe o som: mais uma pra nós dois.',
+    'gabryella, essa música me lembra a gente.',
+    'com todo o meu amor, do vitor pra você.',
+    'essa entra direto na lista das nossas favoritas.',
+    'no ar, a estação do nosso primeiro beijo.',
+    'presta atenção na letra: é a nossa cara.',
+  ];
+  let djIdx = 0, locTimer = null;
+  function anunciar(msg) {
+    locTxt.textContent = msg;
+    locucao.classList.add('mostrar');
+    clearTimeout(locTimer);
+    locTimer = setTimeout(() => locucao.classList.remove('mostrar'), 5200);
+  }
+  function djProxima() { const m = DJ[djIdx % DJ.length]; djIdx++; return m; }
 
   function embaralhar(a) {
     a = a.slice();
@@ -384,7 +423,7 @@
   function proxima() {
     idx++;
     if (idx >= ordem.length) { ordem = embaralhar(PLAYLIST); idx = 0; }
-    carregar(idx); tocar();
+    carregar(idx); tocar(); anunciar(djProxima());
   }
   function anterior() {
     if (audio.currentTime > 3) { audio.currentTime = 0; return; }
@@ -448,6 +487,7 @@
     idx = 0;
     carregar(idx);
     tocar();
+    setTimeout(() => anunciar('rádio gv no ar. essa primeira vai pra você, gabryella.'), 900);
   });
 
   ordem = embaralhar(PLAYLIST);
